@@ -1,0 +1,30 @@
+{
+  "name": "ebay-notifier",
+  "version": "0.1.0",
+  "description": "watch and notify of new items from ebay",
+  "main": "./src/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^3.0.6",
+    "electron-builder": "^20.29.0"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "jquery": "^3.3.1",
+    "request": "^2.88.0"
+  },
+  "build": {
+  "appId": "ebay.notifier",
+  "mac": {
+    "category": "script"
+  }
+}
+}

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- META -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel='stylesheet' href='../resources/css/run.css'/>
+  <script>window.$ = window.jQuery = require('jquery');</script>
+  <script src='../resources/js/run.js'></script>
+  <title>eBay Alerts Run</title>
+</head>
+<body>
+  <div class='whole-wrapper'>
+    <div class='run-container'>
+      <div class='buttons-wrapper'>
+        <a href='settings.html' class='button'>Settings</a>
+        <a class='button' id='ebay-link' target='_blank'>eBay Link</a>
+      </div>
+      <div class='listings-wrapper'>
+        <!-- <% for(let i = 0; i < listings.length; i++){%>
+          <a class='listing' href='<%= listings[i].link %>' target='_blank'>
+            <div class='img' style='background-image: url("<%= listings[i].imageSrc %>")'></div>
+            <div class='listing-title'><%= listings[i].title %></div>
+          </a>
+        <% } %> -->
+      </div>
+    </div>
+    <footer>
+      <a class='link' onClick="shell.openExternal('https://github.com/josuerojasrojas/ebay-notifier')">Source</a>
+    </footer>
+  </div>
+</body>
