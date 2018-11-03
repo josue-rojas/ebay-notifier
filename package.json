@@ -19,12 +19,14 @@
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
     "jquery": "^3.3.1",
+    "jsonfile": "^5.0.0",
+    "mkdirp": "^0.5.1",
     "request": "^2.88.0"
   },
   "build": {
-  "appId": "ebay.notifier",
-  "mac": {
-    "category": "script"
+    "appId": "ebay.notifier",
+    "mac": {
+      "category": "script"
+    }
   }
-}
 }
