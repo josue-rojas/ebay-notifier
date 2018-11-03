@@ -1,14 +1,8 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
-// let fs = require("fs");
-// let read_settings = fs.readFileSync("./src/default_settings.json");
-let settings = {
-  "item": "iphone",
-  "sleep_time": 30000,
-  "notify": false,
-  "max_price": -1,
-  "min_price": -1,
-  "max_show": 20
-};
+const settings_manager =  require('./settings_manage.js');
+
+
+let settings = settings_manager.getSettings();
 let search = require('./search-script');
 // makes instance of search_script
 let search_script = new search.search_script(settings.item, settings.max_price, settings.min_price);
@@ -72,9 +66,10 @@ ipcMain.on('settings_change', (event, arg)=>{
   settings = {...arg};
   console.log(arg);
   search_script.setNewURL(settings.item, settings.max_price, settings.min_price);
-  clearTimeout(listingTimer);
   isRunning = false;
+  settings_manager.changeSettings(settings);
   listings = [];
+  clearTimeout(listingTimer);
   event.sender.send('settings_changed', 'success');
 });
 
