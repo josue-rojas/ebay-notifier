@@ -1,15 +1,17 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
+const path = require('path');
+const url = require('url');
+const isDev = require("electron-is-dev");
 const settings_manager =  require('./settings_manage.js');
-
-
-let settings = settings_manager.getSettings();
 let search = require('./search-script');
+
+const PORT = process.env.PORT || 8080;
+let settings = settings_manager.getSettings();
 // makes instance of search_script
 let search_script = new search.search_script(settings.item, settings.max_price, settings.min_price);
 let listings = [];
 let listingTimer = null;
 let isRunning = false
-
 let win
 
 function createWindow () {
@@ -18,7 +20,18 @@ function createWindow () {
     // fullscreen: true
   });
 
-  win.loadFile('./src/views/pages/index.html');
+  // https://medium.freecodecamp.org/building-an-electron-application-with-create-react-app-97945861647c
+  console.log(isDev);
+  const startUrl = isDev ? `http://localhost:${PORT}` : url.format({
+    pathname: path.join(__dirname, '/../build/index.html'),
+    protocol: 'file:',
+    slashes: true
+  });
+  win.loadURL(startUrl);
+
+
+  // console.log(contents)
+  // win.loadFile('./src/views/pages/index.html');
 
   // Open the DevTools.
   // win.webContents.openDevTools()

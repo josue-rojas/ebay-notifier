@@ -1,0 +1,47 @@
+.inputs-wrapper .input-title {
+  margin-top: 7px;
+  text-align: left; }
+.inputs-wrapper .line {
+  margin: auto;
+  width: 85%;
+  border-top: 1px solid #b5b5b5;
+  margin-bottom: 10px; }
+
+.whole-wrapper .main-container {
+  flex-direction: column; }
+
+.inputs-wrapper .input {
+  display: block;
+  width: 100%;
+  font-size: 1rem;
+  background-color: transparent;
+  padding: 10px;
+  color: #b5b5b5;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  outline: none;
+  transition: .3s; }
+.inputs-wrapper .input:focus {
+  color: #d1d1d1;
+  border: 1px solid #d1d1d1;
+  box-shadow: 0 0 3px #d1d1d1; }
+.inputs-wrapper .input.toggle{
+  display: none; }
+.inputs-wrapper .input-toggle-box {
+  width: 100%;
+  height: calc(1rem + 12px);
+  background-color: #12283b;
+  transition: background-color 300ms;
+  cursor: pointer; }
+.inputs-wrapper .input-toggle-box .toggle {
+  width: 50%;
+  height: 100%;
+  background-color: #0c1b27;
+  transition: margin-left 300ms, background-color 300ms;
+  margin-left: 0;
+  border: 1px solid rgba(255, 255, 255, 0.2); }
+.inputs-wrapper .input-toggle-box .toggle::before {
+  content: "True"; }
+.inputs-wrapper .input-toggle-box.false .toggle {
+  margin-left: 50%; }
+.inputs-wrapper .input-toggle-box.false .toggle::before {
+  content: "False"; }
