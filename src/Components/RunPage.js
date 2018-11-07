@@ -7,7 +7,6 @@ class Listing extends Component {
   render(){
     return(
       <div
-        key={this.props.listing.title + this.props.listing.imageSrc}
         className='listing'
         onClick={()=>shell.openExternal(this.props.listing.link)}>
         <div className='img' style={{backgroundImage: `url('${this.props.listing.imageSrc}')`}}></div>
@@ -22,8 +21,9 @@ export default class RunPage extends Component {
     super(props);
     this.state = {
       max_show: this.props.settings.max_show,
-      listings: [],
+      listings: this.props.listings,
     }
+    this.updateListings = this.updateListings.bind(this);
   }
 
   componentDidMount(){
@@ -38,18 +38,19 @@ export default class RunPage extends Component {
 
   updateListings(event, listings){
     let newListing = [...this.state.listings];
-    for(let listing in listings){
-      newListing.pop();
+    listings.forEach((listing, index)=>{
+      if(newListing.length === this.state.max_show) newListing.pop();
       newListing.unshift(listing);
-    }
+    })
     this.setState({
       listings: newListing,
     });
+    this.props.syncListings(this.state.listings);
   }
 
   createListings(listings){
     let listingComps = listings.map((listing)=>{
-      return (<Listing listing={listing}/>)
+      return (<Listing key={listings.link} listing={listing}/>)
     })
     return listingComps;
   }

@@ -17,6 +17,7 @@ export default class App extends Component {
       listings: [],
     };
     this.setSettings = this.setSettings.bind(this);
+    this.syncListings = this.syncListings.bind(this);
     this.changePage = this.changePage.bind(this);
   }
 
@@ -34,12 +35,18 @@ export default class App extends Component {
   setSettings(newSettings){
     this.setState({
       settings: {...newSettings},
-      current_page: 'run'
+      current_page: 'run',
+      listings: [],
     });
     ipcRenderer.send('settings change', newSettings);
   }
 
+  syncListings(listings){
+    this.setState({listings: listings});
+  }
+
   changePage(page){
+    console.log('app',this.state.listings)
     return ({
       "home": (
         <HomePage
@@ -49,6 +56,7 @@ export default class App extends Component {
         <RunPage
           settings={this.state.settings}
           listings={this.state.listings}
+          syncListings={this.syncListings}
           ebay={this.state.ebay}
           settingsPage={()=>{this.setState({current_page: 'settings'});}}/>),
       "settings": (

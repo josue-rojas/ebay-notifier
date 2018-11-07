@@ -53,6 +53,7 @@ app.on('activate', () => {
 
 // settings data handling
 ipcMain.on('request settings', (event, arg) => {
+  console.log('electron',listings);
   event.sender.send('settings', {settings: settings, listings: listings, ebay_url: search_script.url});
 });
 ipcMain.on('settings change', (event, arg)=>{
@@ -72,9 +73,6 @@ ipcMain.on('stop running', (event, arg)=>{
 
 // run page data handling
 ipcMain.on('run start', (event, arg) => {
-  // console.log('run opened')
-  // console.log(listings);
-  // event.sender.send('settings', {settings: settings, listings: listings, ebay_url: search_script.url});
   isRunning = true;
   // run one time for beginnning when there is no listings
   // ummm might be bad if the point of refres is to fetch but then again this is to prevent so many request then getting banned...

@@ -10,7 +10,7 @@ export default class SettingsPage extends Component{
     this.state = this.props.settings;
     this.createInputs = this.createInputs.bind(this);
     this.handleInput = this.handleInput.bind(this);
-    // this.orderSettings = ["item", "max_price", "min_price", "sleep_time", "max_show", "notify"]
+    //TODO this.orderSettings = ["item", "max_price", "min_price", "sleep_time", "max_show", "notify"]
   }
 
   // make sure to stop script if it wasn't stopped already

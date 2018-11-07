@@ -26,7 +26,7 @@ class settings_manager{
     return this.settings;
   }
   changeSettings(new_settings){
-    this.settings = newSettings;
+    this.settings = new_settings;
     try {
       jsonfile.writeFileSync(this.settings_path, new_settings);
     } catch (err) {
