@@ -53,20 +53,16 @@ app.on('activate', () => {
 
 // settings data handling
 ipcMain.on('request settings', (event, arg) => {
-  console.log('electron',listings);
   event.sender.send('settings', {settings: settings, listings: listings, ebay_url: search_script.url});
 });
 ipcMain.on('settings change', (event, arg)=>{
   settings = {...arg};
-  console.log(arg);
   search_script.setNewURL(settings.item, settings.max_price, settings.min_price);
-  // isRunning = false;
   settings_manager.changeSettings(settings);
   listings = [];
   event.sender.send('settings_changed', 'success');
 });
 ipcMain.on('stop running', (event, arg)=>{
-  // console.log('stop running');
   isRunning = false;
   clearTimeout(listingTimer);
 });
@@ -105,7 +101,6 @@ function setListings(data, sender) {
     else {
       for(let i = data.not_seen.length-1; i > -1; i--){
         if(listings.length === settings.max_show){
-          // console.log('pop');
           listings.pop();
         }
         listings.unshift(data.not_seen[i]);
@@ -113,7 +108,6 @@ function setListings(data, sender) {
       data_send = data.not_seen;
     }
     sender.send('new listings', data_send);
-    // sender.send('new listings', listings);
   }
   console.log(`found ${data.not_seen.length} new listings`)
 }

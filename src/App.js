@@ -4,7 +4,6 @@ import Footer from './Components/Footer';
 import HomePage from './Components/HomePage';
 import RunPage from './Components/RunPage';
 import SettingsPage from './Components/SettingsPage';
-
 const {ipcRenderer} = require('electron');
 
 export default class App extends Component {
