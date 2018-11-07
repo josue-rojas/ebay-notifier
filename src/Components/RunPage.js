@@ -21,9 +21,11 @@ export default class RunPage extends Component {
     super(props);
     this.state = {
       max_show: this.props.settings.max_show,
+      notify: this.props.settings.notify,
       listings: this.props.listings,
       new_listing_class: -1,
     }
+    this.sendNotification = this.sendNotification.bind(this);
     this.updateListings = this.updateListings.bind(this);
     this.createListings = this.createListings.bind(this);
   }
@@ -38,6 +40,12 @@ export default class RunPage extends Component {
     ipcRenderer.removeListener('new listings', this.updateListings);
   }
 
+  sendNotification(num_listings){
+    let notification = null;
+    if(this.state.notify)
+      notification= new Notification(`New listings found: ${num_listings}`);
+  }
+
   updateListings(event, listings){
     let newListing = [...this.state.listings];
     let new_listing_class = -1;
@@ -50,6 +58,7 @@ export default class RunPage extends Component {
       listings: newListing,
       new_listing_class: new_listing_class,
     });
+    this.sendNotification(listings.length);
     this.props.syncListings(this.state.listings);
   }
 
