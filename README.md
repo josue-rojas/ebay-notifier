@@ -1,6 +1,6 @@
 ## eBay-notifier
 
-an electron app that scrapes every so often for new items and notifies. be the first one to see the items and have a higher chance of getting a deal.
+an electron react app that scrapes every so often for new items and notifies. be the first one to see the items and have a higher chance of getting a deal.
 
 ## Download
 - [Mac Build](https://github.com/josuerojasrojas/ebay-notifier/releases)

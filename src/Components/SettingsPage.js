@@ -1,21 +1,28 @@
 import React, { Component } from 'react';
 import './Styles/SettingsPage.css';
+import Button from './Button';
+const { ipcRenderer } = require('electron');
 
+// TODO: might remove state settings. the App.js should take care of the only state or else it will be hard to debug later
 export default class SettingsPage extends Component{
   constructor(props){
     super(props);
     this.state = this.props.settings;
     this.createInputs = this.createInputs.bind(this);
     this.handleInput = this.handleInput.bind(this);
+    // this.orderSettings = ["item", "max_price", "min_price", "sleep_time", "max_show", "notify"]
+  }
+
+  // make sure to stop script if it wasn't stopped already
+  componentDidMount(){
+    ipcRenderer.send('stop running');
   }
 
   handleInput(e, name, isBool=false){
-    console.log(name, this.state[name])
     const state = {...this.state}
     const value = isBool ? !this.state[name] : e.target.value;
-    state[name] = value;
+    state[name] = parseInt(value) || value; //need a better way for checking if it needs to be int
     this.setState(state);
-    // this.props.handleInput(values)
   };
 
   createInputs(settings){
@@ -49,6 +56,14 @@ export default class SettingsPage extends Component{
           <h3 className='title'>Settings</h3>
           <div className='line'></div>
           {this.createInputs(this.state)}
+          <div className='button-wrapper'>
+            <Button
+              Name='Save'
+              onClick={()=>{this.props.updateSettings(this.state)}}/>
+            <Button
+              Name='Cancel'
+              onClick={this.props.runPage}/>
+          </div>
         </div>
       </div>
     );
