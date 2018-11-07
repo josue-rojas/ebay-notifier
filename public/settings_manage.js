@@ -14,7 +14,6 @@ class settings_manager{
       "min_price": -1,
       "max_show": 20
     };
-    console.log(this.settings_path)
     try {
       this.settings = jsonfile.readFileSync(this.settings_path);
     }
@@ -27,6 +26,7 @@ class settings_manager{
     return this.settings;
   }
   changeSettings(new_settings){
+    this.settings = new_settings;
     try {
       jsonfile.writeFileSync(this.settings_path, new_settings);
     } catch (err) {

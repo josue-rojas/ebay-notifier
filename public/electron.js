@@ -1,15 +1,16 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
+const path = require('path');
+const url = require('url');
+const isDev = require("electron-is-dev");
 const settings_manager =  require('./settings_manage.js');
-
+let search = require('./search-script');
 
 let settings = settings_manager.getSettings();
-let search = require('./search-script');
 // makes instance of search_script
 let search_script = new search.search_script(settings.item, settings.max_price, settings.min_price);
 let listings = [];
 let listingTimer = null;
 let isRunning = false
-
 let win
 
 function createWindow () {
@@ -18,16 +19,15 @@ function createWindow () {
     // fullscreen: true
   });
 
-  win.loadFile('./src/views/pages/index.html');
+  // https://medium.freecodecamp.org/building-an-electron-application-with-create-react-app-97945861647c
+  const startUrl = isDev ? `http://localhost:${process.env.PORT || 8080}` : url.format({
+    pathname: path.join(__dirname, '/../build/index.html'),
+    protocol: 'file:',
+    slashes: true
+  });
+  win.loadURL(startUrl);
 
-  // Open the DevTools.
-  // win.webContents.openDevTools()
-
-  // Emitted when the window is closed.
   win.on('closed', () => {
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
     win = null
   })
 }
@@ -39,16 +39,12 @@ app.on('ready', createWindow)
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
-  // On macOS it is common for applications and their menu bar
-  // to stay active until the user quits explicitly with Cmd + Q
   if (process.platform !== 'darwin') {
     app.quit()
   }
 })
 
 app.on('activate', () => {
-  // On macOS it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
   if (win === null) {
     createWindow()
   }
@@ -56,28 +52,23 @@ app.on('activate', () => {
 
 
 // settings data handling
-ipcMain.on('settings_opened', (event, arg) => {
-  console.log('settings opened')
-  event.sender.send('settings', settings);
-  clearTimeout(listingTimer);
-  isRunning = false;
+ipcMain.on('request settings', (event, arg) => {
+  event.sender.send('settings', {settings: settings, listings: listings, ebay_url: search_script.url});
 });
-ipcMain.on('settings_change', (event, arg)=>{
+ipcMain.on('settings change', (event, arg)=>{
   settings = {...arg};
-  console.log(arg);
   search_script.setNewURL(settings.item, settings.max_price, settings.min_price);
-  isRunning = false;
   settings_manager.changeSettings(settings);
   listings = [];
-  clearTimeout(listingTimer);
   event.sender.send('settings_changed', 'success');
+});
+ipcMain.on('stop running', (event, arg)=>{
+  isRunning = false;
+  clearTimeout(listingTimer);
 });
 
 // run page data handling
-ipcMain.on('run_opened', (event, arg) => {
-  console.log('run opened')
-  // console.log(listings);
-  event.sender.send('settings', {settings: settings, listings: listings, ebay_url: search_script.url});
+ipcMain.on('run start', (event, arg) => {
   isRunning = true;
   // run one time for beginnning when there is no listings
   // ummm might be bad if the point of refres is to fetch but then again this is to prevent so many request then getting banned...
@@ -90,7 +81,7 @@ ipcMain.on('run_opened', (event, arg) => {
 
 // // callback for getNewLinks in search_script
 function setListings(data, sender) {
-  console.log('fetching new listings');
+  console.log('fetching new listings', settings.max_show);
   if(data.error){
     console.log('error in search script');
     return false;
@@ -116,7 +107,7 @@ function setListings(data, sender) {
       }
       data_send = data.not_seen;
     }
-    sender.send('new listings', data_send)
+    sender.send('new listings', data_send);
   }
   console.log(`found ${data.not_seen.length} new listings`)
 }

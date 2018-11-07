@@ -1,32 +1,60 @@
 {
   "name": "ebay-notifier",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "watch and notify of new items from ebay",
-  "main": "./src/main.js",
+  "homepage": "./",
+  "main": "public/electron.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron .",
-    "pack": "electron-builder --dir",
-    "dist": "electron-builder",
-    "postinstall": "electron-builder install-app-deps"
+    "react-start": "react-scripts start",
+    "react-build": "react-scripts build",
+    "react-test": "react-scripts test --env=jsdom",
+    "react-eject": "react-scripts eject",
+    "electron-build": "electron-builder",
+    "release": "yarn react-build && electron-builder --publish=always",
+    "pack": "yarn react-build && yarn electron-builder --dir",
+    "build": "yarn react-build && yarn electron-build",
+    "start": "concurrently \"BROWSER=none yarn react-start\" \"wait-on http://localhost:8080 && electron .\""
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "concurrently": "^4.0.1",
     "electron": "^3.0.6",
-    "electron-builder": "^20.29.0"
+    "electron-builder": "^20.29.0",
+    "electron-renderer-react-scripts-target": "^1.1.1",
+    "wait-on": "^3.1.0"
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
+    "electron-is-dev": "^1.0.1",
     "jquery": "^3.3.1",
     "jsonfile": "^5.0.0",
     "mkdirp": "^0.5.1",
+    "react": "^16.6.0",
+    "react-dom": "^16.6.0",
+    "react-scripts": "2.1.1",
     "request": "^2.88.0"
   },
   "build": {
     "appId": "ebay.notifier",
     "mac": {
       "category": "script"
+    },
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "buildResources": "assets"
     }
-  }
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

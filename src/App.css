@@ -19,6 +19,22 @@ body {
 *, *::before, *::after {
   box-sizing: inherit; }
 
+p, h1 ,h2 ,h3, h4, h5, h6 {
+  margin: 0;
+}
+
+.title {
+  font-size: 1.5rem; }
+
+.link {
+  color: #b5b5b5;
+  transition: 300ms;
+  cursor: pointer;
+  text-decoration: none; }
+  .link:hover {
+    color: #d1d1d1; }
+
+
 .whole-wrapper {
   min-height: 100vh;
   min-width: 100vw;
@@ -43,46 +59,3 @@ body {
       .whole-wrapper .main-container {
         max-width: 60%;
         min-height: 35vh; } }
-
-.button {
-  background-color: #12283b;
-  padding: 7px 5px;
-  width: 90px;
-  transition: 300ms;
-  margin: 5px;
-  cursor: pointer;
-  text-align: center;
-  text-decoration: none;
-  color: #b5b5b5; }
-  .button:hover {
-    color: #d1d1d1;
-    background-color: #0c1b27; }
-
-.title {
-  font-size: 1.5rem; }
-
-.link {
-  color: #b5b5b5;
-  transition: 300ms;
-  cursor: pointer;
-  text-decoration: none; }
-  .link:hover {
-    color: #d1d1d1; }
-
-footer {
-  font-size: .9rem;
-  margin: 10px 0;
-  text-align: center; }
-
-.whole-wrapper .main-container .button-container {
-  margin: auto; }
-  .whole-wrapper .main-container .button-container .button {
-    margin: 5px auto; }
-    @media (min-width: 768px) {
-      .whole-wrapper .main-container .button-container .button {
-        display: inline-block; }
-        .whole-wrapper .main-container .button-container .button:first-child {
-          margin-right: 15px; } }
-
-.whole-wrapper .main-container .text {
-  margin: 5px 0 15px 0; }
