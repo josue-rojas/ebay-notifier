@@ -46,7 +46,6 @@ export default class App extends Component {
   }
 
   changePage(page){
-    console.log('app',this.state.listings)
     return ({
       "home": (
         <HomePage

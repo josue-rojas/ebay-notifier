@@ -7,7 +7,7 @@ class Listing extends Component {
   render(){
     return(
       <div
-        className='listing'
+        className={`listing ${this.props.isNew ? "new-listing" : ""}`}
         onClick={()=>shell.openExternal(this.props.listing.link)}>
         <div className='img' style={{backgroundImage: `url('${this.props.listing.imageSrc}')`}}></div>
         <div className='listing-title'>{this.props.listing.title}</div>
@@ -22,8 +22,10 @@ export default class RunPage extends Component {
     this.state = {
       max_show: this.props.settings.max_show,
       listings: this.props.listings,
+      new_listing_class: -1,
     }
     this.updateListings = this.updateListings.bind(this);
+    this.createListings = this.createListings.bind(this);
   }
 
   componentDidMount(){
@@ -38,19 +40,26 @@ export default class RunPage extends Component {
 
   updateListings(event, listings){
     let newListing = [...this.state.listings];
+    let new_listing_class = -1;
     listings.forEach((listing, index)=>{
+      new_listing_class++;
       if(newListing.length === this.state.max_show) newListing.pop();
       newListing.unshift(listing);
     })
     this.setState({
       listings: newListing,
+      new_listing_class: new_listing_class,
     });
     this.props.syncListings(this.state.listings);
   }
 
   createListings(listings){
-    let listingComps = listings.map((listing)=>{
-      return (<Listing key={listings.link} listing={listing}/>)
+    let listingComps = listings.map((listing, i)=>{
+      return (
+        <Listing
+          key={listings.link}
+          isNew={i <= this.state.new_listing_class}
+          listing={listing}/>)
     })
     return listingComps;
   }
@@ -67,7 +76,7 @@ export default class RunPage extends Component {
             onClick={()=>{shell.openExternal(this.props.ebay)}}/>
         </div>
         <div className='listings-wrapper'>
-          {this.createListings(this.props.listings)}
+          {this.createListings(this.state.listings)}
         </div>
       </div>
     );
