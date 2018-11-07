@@ -57,7 +57,7 @@ export default class RunPage extends Component {
     let listingComps = listings.map((listing, i)=>{
       return (
         <Listing
-          key={listings.link}
+          key={listing.link}
           isNew={i <= this.state.new_listing_class}
           listing={listing}/>)
     })

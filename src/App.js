@@ -48,29 +48,33 @@ export default class App extends Component {
   changePage(page){
     return ({
       "home": (
-        <HomePage
-        runPage={()=>{this.setState({current_page: 'run'});}}
-        settingsPage={()=>{this.setState({current_page: 'settings'});}}/>),
+        <div className="main-container">
+          <HomePage
+            runPage={()=>{this.setState({current_page: 'run'});}}
+            settingsPage={()=>{this.setState({current_page: 'settings'});}}/>
+        </div>),
       "run": (
-        <RunPage
-          settings={this.state.settings}
-          listings={this.state.listings}
-          syncListings={this.syncListings}
-          ebay={this.state.ebay}
-          settingsPage={()=>{this.setState({current_page: 'settings'});}}/>),
+        <div className="main-container wide">
+          <RunPage
+            settings={this.state.settings}
+            listings={this.state.listings}
+            syncListings={this.syncListings}
+            ebay={this.state.ebay}
+            settingsPage={()=>{this.setState({current_page: 'settings'});}}/>
+        </div>),
       "settings": (
-        <SettingsPage
-          settings={this.state.settings}
-          updateSettings={this.setSettings}
-          runPage={()=>{this.setState({current_page: 'run'});}}/>)
+        <div className="main-container">
+          <SettingsPage
+            settings={this.state.settings}
+            updateSettings={this.setSettings}
+            runPage={()=>{this.setState({current_page: 'run'});}}/>
+        </div>)
     })[page];
   }
   render() {
     return (
       <div className="whole-wrapper">
-        <div className="main-container">
           {this.changePage(this.state.current_page)}
-        </div>
         <Footer/>
       </div>
     );

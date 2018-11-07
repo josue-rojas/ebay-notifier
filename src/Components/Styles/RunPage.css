@@ -1,17 +1,17 @@
-/* TODO: fix container too small in large screens and medium so makes listing squished */
-/* .whole-wrapper .main-container {
+
+.whole-wrapper .main-container.wide {
   min-width: 100px;
   max-width: 100%;
   padding: 0px;
   text-align: center;
   margin: auto; }
 @media (min-width: 768px) {
-  .whole-wrapper .main-container {
+  .whole-wrapper .main-container.wide {
     max-width: 100%; } }
 @media (min-width: 992px) {
-  .whole-wrapper .main-container {
+  .whole-wrapper .main-container.wide {
     max-width: 100%;
-    min-height: 35vh; } } */
+    min-height: 35vh; } }
 
 .buttons-wrapper {
   padding-top: 15px;
