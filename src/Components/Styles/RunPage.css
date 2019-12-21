@@ -1,34 +1,43 @@
-
 .whole-wrapper .main-container.wide {
   min-width: 100px;
   max-width: 100%;
   padding: 0px;
   text-align: center;
-  margin: auto; }
+  margin: auto;
+}
 @media (min-width: 768px) {
   .whole-wrapper .main-container.wide {
-    max-width: 100%; } }
+    max-width: 100%;
+  }
+}
 @media (min-width: 992px) {
   .whole-wrapper .main-container.wide {
     max-width: 100%;
-    min-height: 35vh; } }
+    min-height: 35vh;
+  }
+}
 
 .buttons-wrapper {
   padding-top: 15px;
   display: table;
-  margin: auto; }
+  margin: auto;
+}
 .buttons-wrapper .button {
-  margin: 5px auto; }
+  margin: 5px auto;
+}
 @media (min-width: 768px) {
   .buttons-wrapper .button {
-    display: inline-block; }
+    display: inline-block;
+  }
   .buttons-wrapper .button:first-child {
-    margin-right: 15px; } }
-
+    margin-right: 15px;
+  }
+}
 
 .listings-wrapper {
   display: flex;
-  flex-wrap: wrap; }
+  flex-wrap: wrap;
+}
 .listings-wrapper .listing {
   background-color: #12283b;
   text-decoration: none;
@@ -38,22 +47,34 @@
   transition: background-color 300ms;
   cursor: pointer;
   margin: 10px 0;
-  position: relative; }
+  position: relative;
+}
+
+.listing-price {
+  font-weight: bold;
+}
 
 @media (min-width: 768px) {
   .listings-wrapper .listing {
     width: 40%;
-    margin: 15px 6.6666% 15px 0; }
-  .listings-wrapper .listing:nth-child(2n+1) {
-    margin-left: 6.6666%; } }
+    margin: 15px 6.6666% 15px 0;
+  }
+  .listings-wrapper .listing:nth-child(2n + 1) {
+    margin-left: 6.6666%;
+  }
+}
 @media (min-width: 992px) {
   .listings-wrapper .listing {
     width: 20%;
-    margin-right: 4%; }
-  .listings-wrapper .listing:nth-child(2n+1) {
-    margin-left: 0; }
-  .listings-wrapper .listing:nth-child(4n+1) {
-    margin-left: 4%; } }
+    margin-right: 4%;
+  }
+  .listings-wrapper .listing:nth-child(2n + 1) {
+    margin-left: 0;
+  }
+  .listings-wrapper .listing:nth-child(4n + 1) {
+    margin-left: 4%;
+  }
+}
 
 .listings-wrapper .listing.new-listing::before {
   content: "New Listing";
@@ -61,7 +82,8 @@
   right: 0;
   background-color: #12283b;
   color: #b5b5b5;
-  position: absolute; }
+  position: absolute;
+}
 
 .listings-wrapper .listing .img {
   background-color: rgba(255, 255, 255, 0.2);
@@ -69,4 +91,5 @@
   background-size: contain;
   background-repeat: no-repeat;
   width: 100%;
-  height: 250px; }
+  height: 250px;
+}

@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import './Styles/SettingsPage.css';
-import Button from './Button';
-const { ipcRenderer } = require('electron');
+import React, { Component } from "react";
+import "./Styles/SettingsPage.css";
+import Button from "./Button";
+const { ipcRenderer } = require("electron");
 
 // TODO: might remove state settings. the App.js should take care of the only state or else it will be hard to debug later
-export default class SettingsPage extends Component{
-  constructor(props){
+export default class SettingsPage extends Component {
+  constructor(props) {
     super(props);
     this.state = this.props.settings;
     this.createInputs = this.createInputs.bind(this);
@@ -14,34 +14,43 @@ export default class SettingsPage extends Component{
   }
 
   // make sure to stop script if it wasn't stopped already
-  componentDidMount(){
-    ipcRenderer.send('stop running');
+  componentDidMount() {
+    ipcRenderer.send("stop running");
   }
 
-  handleInput(e, name, isBool=false){
-    const state = {...this.state}
+  handleInput(e, name, isBool = false) {
+    const state = { ...this.state };
     const value = isBool ? !this.state[name] : e.target.value;
     state[name] = parseInt(value) || value; //need a better way for checking if it needs to be int
     this.setState(state);
-  };
+  }
 
-  createInputs(settings){
+  createInputs(settings) {
     let inputs = [];
-    for(let name in settings){
-      let input_toggle = typeof(settings[name]) === "boolean" ? 'toggle': ' ';
-      let toggle_div = input_toggle !== 'toggle' ? '' : (<div className={`input-toggle-box ${settings[name]}`} onClick={()=> this.handleInput(null, name, true)}>
-        <div className='toggle'></div>
-      </div>)
+    for (let name in settings) {
+      let input_toggle = typeof settings[name] === "boolean" ? "toggle" : " ";
+      let toggle_div =
+        input_toggle !== "toggle" ? (
+          ""
+        ) : (
+          <div
+            className={`input-toggle-box ${settings[name]}`}
+            onClick={() => this.handleInput(null, name, true)}
+          >
+            <div className="toggle" />
+          </div>
+        );
       inputs.push(
         <div key={name}>
-          <div className='input-title'>{name}</div>
+          <div className="input-title">{name}</div>
           <input
-            onChange={(e) => this.handleInput(e, name)}
+            onChange={e => this.handleInput(e, name)}
             className={`input ${input_toggle}`}
-            name='item'
+            name="item"
             value={settings[name]}
-            placeholder='Item'
-            type='text'/>
+            placeholder="Item"
+            type="text"
+          />
           {toggle_div}
         </div>
       );
@@ -50,19 +59,20 @@ export default class SettingsPage extends Component{
   }
 
   render() {
-    return(
+    return (
       <div>
-        <div className='inputs-wrapper'>
-          <h3 className='title'>Settings</h3>
-          <div className='line'></div>
+        <div className="inputs-wrapper">
+          <h3 className="title">Settings</h3>
+          <div className="line" />
           {this.createInputs(this.state)}
-          <div className='button-wrapper'>
+          <div className="button-wrapper">
             <Button
-              Name='Save'
-              onClick={()=>{this.props.updateSettings(this.state)}}/>
-            <Button
-              Name='Cancel'
-              onClick={this.props.runPage}/>
+              Name="Save"
+              onClick={() => {
+                this.props.updateSettings(this.state);
+              }}
+            />
+            <Button Name="Cancel" onClick={this.props.runPage} />
           </div>
         </div>
       </div>

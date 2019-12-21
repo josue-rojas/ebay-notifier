@@ -1,12 +1,18 @@
 .button-container {
-  margin: auto; }
+  margin: auto;
+}
+.button-container .button {
+  margin: 5px auto;
+}
+@media (min-width: 768px) {
   .button-container .button {
-    margin: 5px auto; }
-    @media (min-width: 768px) {
-      .button-container .button {
-        display: inline-block; }
-        .button-container .button:first-child {
-          margin-right: 15px; } }
+    display: inline-block;
+  }
+  .button-container .button:first-child {
+    margin-right: 15px;
+  }
+}
 
 .text {
-  margin: 5px 0 15px 0; }
+  margin: 5px 0 15px 0;
+}

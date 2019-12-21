@@ -7,7 +7,9 @@
   cursor: pointer;
   text-align: center;
   text-decoration: none;
-  color: #b5b5b5; }
-  .button:hover {
-    color: #d1d1d1;
-    background-color: #0c1b27; }
+  color: #b5b5b5;
+}
+.button:hover {
+  color: #d1d1d1;
+  background-color: #0c1b27;
+}
