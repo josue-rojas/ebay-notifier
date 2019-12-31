@@ -10,7 +10,7 @@ class search_script {
     const max_query = max > 0 ? `&_udhi=${max}` : "";
     const min_query = min > 0 ? `&_udlo=${min}` : "";
     this.url = encodeURI(
-      `https://www.ebay.com/sch/i.html?_from=R40&_sacat=0&_ipg=50%27&_nkw=${item}&_sop=10${max_query}${min_query}`
+      `https://www.ebay.com/sch/i.html?_from=R40&_sacat=0&_ipg=50%27&_nkw=${item}&_sop=10${max_query}${min_query}&LH_BIN=1`
     );
     this.seen_links = new Set([]);
   }
